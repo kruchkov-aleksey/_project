@@ -37,7 +37,6 @@ class ItemPageKeyedDataSource(private val model: ImgurImagesModel) :
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, ImgurImage>) {
-        TODO("Not yet implemented")
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, ImgurImage>) {

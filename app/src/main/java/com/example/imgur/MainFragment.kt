@@ -12,10 +12,12 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.imgur.entity.BaseResponse
 import com.example.imgur.entity.ImgurImage
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -52,11 +54,7 @@ class MainFragment : MvpAppCompatFragment(), ImgurImagesView {
             val bundle = Bundle()
             bundle.putParcelable("imgurImages", item)
             fragmentReplace.arguments = bundle
-            requireFragmentManager().beginTransaction()
-                .replace(R.id.fragmentContainer, fragmentReplace, TAG)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .addToBackStack(TAG)
-                .commit()
+            findNavController().navigate(R.id.fragment_about, bundle)
         }
     }
 
@@ -75,6 +73,7 @@ class MainFragment : MvpAppCompatFragment(), ImgurImagesView {
         val config: PagedList.Config =
             PagedList.Config.Builder().setEnablePlaceholders(false).setPageSize(10).build()
         val pagedListLiveData: LiveData<PagedList<ImgurImage>> = LivePagedListBuilder<Int, ImgurImage>(sourceFactory, config).build()
+        rvList.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL )
         rvList.adapter = adapter
         pagedListLiveData.observe(viewLifecycleOwner, object : Observer<PagedList<ImgurImage>> {
             override fun onChanged(t: PagedList<ImgurImage>?) {

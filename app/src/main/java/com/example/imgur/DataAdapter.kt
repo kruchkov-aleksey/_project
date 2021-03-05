@@ -29,10 +29,6 @@ class DataAdapter(val listener: RecyclerViewClickListener) :
         fun bind(item: ImgurImage?) {
             Glide.with(itemView.context).load(item?.images?.firstOrNull()?.link)
                 .into(itemView.imageView)
-            itemView.textView.text = item?.title
-            itemView.textViews.text = item?.views.toString()
-            itemView.ups.text = item?.ups.toString()
-            itemView.comment_count.text = item?.comment_count.toString()
             itemView.setOnClickListener { listener.onClick(currentList[adapterPosition]) }
         }
     }

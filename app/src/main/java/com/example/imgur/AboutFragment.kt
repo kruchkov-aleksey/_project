@@ -34,10 +34,10 @@ class AboutFragment : Fragment() {
         toolbar?.title = "More details"
         toolbar.navigationIcon = resources.getDrawable(R.drawable.arrow)
         toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
-        val imgurImage: ImgurImage = bundle?.getParcelable<ImgurImage>("imgurImages")!!
+        val imgurImage: ImgurImage? = bundle?.getParcelable<ImgurImage>("imgurImages")
         if (imgurImage != null) {
             textView.text = imgurImage.title
-            Glide.with(requireContext()).load(imgurImage?.images?.firstOrNull()?.link)
+            Glide.with(requireContext()).load(imgurImage.images?.firstOrNull()?.link)
                 .into(imageView)
             textViews.text = imgurImage.views.toString()
             ups.text = imgurImage.ups.toString()
